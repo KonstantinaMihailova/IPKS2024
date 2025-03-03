@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zbir na kvadrati na elementi vneseni preku prompt</title>
+    <script>
+        let numbers=prompt("Vnesi broevi: ")
+        let splittedNumbers=numbers.split(";");
+        let result=splittedNumbers.map(x=>parseInt(x)).reduce((acc,x)=>acc+Math.pow(x,2),0)
+        console.log(result)
+    </script>
+</head>
+<body>
+
+</body>
+</html>

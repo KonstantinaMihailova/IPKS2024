@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generiranjs so Math.random</title>
+    <script>
+        function generate(){
+            let numberElements=parseInt(document.getElementById("number").value)
+            let bottomLimit=parseInt(document.getElementById("bottomLimit").value)
+            let upperLimit=parseInt(document.getElementById("upperLimit").value)
+
+            let randomNumbers=new Array();
+
+            for (let i = 0; i < numberElements; i++)
+            {
+                randomNumbers.push(Math.floor(Math.random()*(upperLimit-bottomLimit))+bottomLimit)
+            }
+
+            let placetoAdd=document.getElementById("placeToAdd")
+            placetoAdd.innerHTML=randomNumbers;
+
+        }
+    </script>
+</head>
+<body>
+<div>
+    <label>Number of elements</label>
+    <input type="text" id="number">
+</div>
+<div>
+    <label>Bottom limit</label>
+    <input type="text" id="bottomLimit">
+</div>
+<div>
+    <label>Upper limit</label>
+    <input type="text" id="upperLimit">
+</div>
+<button onclick="generate()">Generate</button>
+<div id="placeToAdd"></div>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Efekt na sneg</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <style>
+        div{
+            background: white;
+            border-radius: 50%;
+            border: 1px solid white;
+            position: absolute;
+            width: 10px;
+            height: 10px;
+        }
+        body{
+            background: black;
+            overflow: hidden;
+        }
+
+    </style>
+    <script>
+        function addingSnowBall(){
+            let place=document.getElementsByTagName("body")[0]
+            let newSnowBall=document.createElement("div")
+            place.append(newSnowBall)
+
+            let widthAndHeight=Math.floor(Math.random()*5)+"px";
+            newSnowBall.style.width=widthAndHeight+"px"
+            newSnowBall.style.height=widthAndHeight+"px"
+            newSnowBall.setAttribute("class","snowBall")
+            newSnowBall.style.left=Math.floor(Math.random()*window.innerWidth)+"px"
+
+            let animation=anime({
+                targets:newSnowBall,
+                easing:"linear",
+                translateY: [-50,window.innerHeight-25],
+                delay: anime.stagger(250),
+                duration:3000,
+                scale: () => anime.random(0.5, 1.5),
+            })
+        }
+
+        setInterval(addingSnowBall,300)
+
+    </script>
+</head>
+<body>
+<script>
+
+</script>
+
+
+</body>
+</html>

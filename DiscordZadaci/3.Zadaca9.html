@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Apteka</title>
+    <style>
+        table,thead,th,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+    <script>
+        let pills=[]
+        let antibiotics=0
+        let prices=[]
+        let quantities=[]
+        function add(){
+            let name=document.getElementById("name").value
+            let quantity=document.getElementById("quantity").value
+            let price=document.getElementById("price").value
+
+            if(!name || !quantity || !price){
+                alert("Enter all fields!")
+                return;
+            }
+
+            let antibiotik=""
+            let earning=1;
+            if(document.getElementById("buttonYes").checked==true){
+                antibiotik="true"
+                earning=(parseInt(price)*0.20).toFixed(2)
+            }
+            else{
+                antibiotik="false"
+                earning=(parseInt(price)*0.15).toFixed(2)
+            }
+
+            let totalPrice=parseInt(quantity)* parseInt(price)
+            let totalEarning=(parseFloat(quantity)*parseFloat(earning)).toFixed(2)
+
+            if(isNotEntered(name,price,quantity,antibiotik)){
+                let tabela=document.getElementById("table")
+                let row=document.createElement("tr")
+                row.innerHTML="<td>"+name+"</td><td>"+parseInt(quantity)+"</td><td>"+antibiotik+"</td><td>"+parseInt(price)+"</td><td>"+parseInt(totalPrice)+"</td><td>"+parseInt(earning)+"</td><td>"+parseInt(totalEarning)+"</td>"
+                row.setAttribute("id","row-"+name)
+                tabela.append(row)
+                pills.push(name)
+                if(antibiotik==="true")
+                    antibiotics++;
+                prices.push(parseInt(price))
+                quantities.push(parseInt(quantity))
+            }
+
+
+
+        }
+
+        function isNotEntered(pill,price,quantity,antibiotic){
+            if(pills.includes(pill,0)){
+                let row=document.getElementById("row-"+pill)
+                let totalPrice=parseInt(quantity)* parseInt(price)
+                let earning=(parseInt(price)*0.15).toFixed(2)
+                let totalEarning=(parseFloat(quantity)*parseFloat(earning)).toFixed(2)
+                let oldQuantity=parseInt(row.children[1].innerHTML)
+                let oldTotalPrice=parseInt(row.children[4].innerHTML)
+                let oldTotalEarning=parseInt(row.children[6].innerHTML)
+
+                if(antibiotic==="true")
+                    antibiotics++;
+                else{
+                    antibiotics--;
+                }
+                prices.push(parseInt(price))
+                quantities.push(parseInt(quantity))
+
+                row.children[1].innerHTML = oldQuantity + parseInt(quantity);
+                row.children[2].innerHTML = antibiotic;
+                row.children[3].innerHTML = price;
+                row.children[4].innerHTML = oldTotalPrice + totalPrice;
+                row.children[5].innerHTML = earning;
+                row.children[6].innerHTML = (oldTotalEarning + parseFloat(totalEarning)).toFixed(2);
+
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+        
+        function generate(){
+
+            let placeToAdd=document.getElementById("placeToAdd")
+            let info1=document.createElement("p")
+            info1.innerHTML="<p>Number of pills:"+pills.length+" </p>"
+            placeToAdd.append(info1)
+            let info2=document.createElement("p")
+            info2.innerHTML="<p>Number of sold antibiotics:"+antibiotics+" </p>"
+            placeToAdd.append(info2)
+            let info3=document.createElement("p")
+            info3.innerHTML="<p>Number of other pills:"+parseInt(pills.length-antibiotics)+" </p>"
+            placeToAdd.append(info3)
+            let info4=document.createElement("p")
+            info4.innerHTML="<p>Number of sold pill's boxes:"+quantities.reduce((sum,value)=>sum+value,0)+" </p>"
+            placeToAdd.append(info4)
+            let info5=document.createElement("p")
+            let sumPrices=prices.reduce((sum,value)=>sum+value,0)
+            info5.innerHTML="<p>Average pill price: "+parseFloat(sumPrices/(parseInt(pills.length)))+" </p>"
+            placeToAdd.append(info5)
+
+            //Treba da se dorese za poslednite dve informacii od izvestajo
+
+        }
+
+    </script>
+</head>
+<body>
+<div>
+    <label>Name: </label>
+    <input type="text" id="name">
+</div>
+<div>
+    <label>Sold quantity: </label>
+    <input type="text" id="quantity">
+</div>
+<div>
+    <label>Price: </label>
+    <input type="text" id="price">
+</div>
+<div>
+    <label>Antibiotic?: </label>
+    <div>
+        <input type="radio" name="antibiotic" id="buttonYes" checked>
+        <label>Yes</label>
+        <input type="radio" name="antibiotic" id="buttonNo">
+        <label>No</label>
+    </div>
+</div>
+<button onclick="add()">Add</button>
+<table id="table">
+    <thead>
+    <th>Name</th>
+    <th>Quantity</th>
+    <th>Antibiotic?</th>
+    <th>Price</th>
+    <th>Total Price</th>
+    <th>Earning</th>
+    <th>Total earning</th>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+
+<button onclick="generate()">Generate report</button>
+<div id="placeToAdd">
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Indikator za vcituvanje</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+    <style>
+        .spinner {
+            width: 100px;
+            height: 100px;
+            border: 20px solid #3498db;
+            border-bottom-color: gray;
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+<div class="spinner"></div>
+<script>
+    let animation1=anime({
+        targets: '.spinner',
+        rotate: 360,
+        scale: [1,0.85,1],
+        easing: 'linear',
+        loop: true,
+        duration: 1000,
+        direction:'reverse'
+    });
+
+    let animation2=anime({
+        targets: '.spinner',
+        borderColor: ["#ff0000","#00ff00","#0000ff"],
+        borderBottomColor: "rgba(0, 0, 0, 0.3)",
+        loop: true,
+        duration: 6000
+    })
+</script>
+</body>
+</html>

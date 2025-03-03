@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Filtriranje broevi</title>
+    <script>
+        function filter() {
+            let numbers=document.getElementById("numbers").value
+            let comparator=document.getElementById("comparator").value
+            let filterValue=document.getElementById("filter").value
+            let parsedComparator=parseInt(comparator);
+            let place=document.getElementById("placeForNumbers")
+
+            let splittedNumbers=numbers.split(",");
+            let parsedNumbers=splittedNumbers.map(x=>parseInt(x))
+            if(filterValue==="Bigger"){
+                let result=parsedNumbers.filter(x=>x>parsedComparator)
+                place.innerHTML=result
+            }else{
+                let result=parsedNumbers.filter(x=>x<parsedComparator)
+                place.innerHTML=result
+            }
+        }
+
+    </script>
+</head>
+<body>
+<div>
+    <label>Enter numbers: </label>
+    <input type="text" id="numbers">
+</div>
+<div>
+    <label>Enter comparator: </label>
+    <input type="text" id="comparator">
+</div>
+<div>
+    <select id="filter">Enter filter:
+        <option>Bigger</option>
+        <option>Smaller</option>
+    </select>
+</div>
+<button onclick="filter()">Filter</button>
+<h3 id="placeForNumbers"></h3>
+</body>
+</html>

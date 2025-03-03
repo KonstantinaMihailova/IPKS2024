@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sortiranje stringovi</title>
+    <script>
+        function divide() {
+
+            let strings=document.getElementById("strings").value
+            strings=strings.split(";")
+            let placeForAdding=document.getElementById("placeForGroups")
+
+            for (let i = 97; i <=122 ; i++) {// a ima ASCII 97, a z ima 122 ASCII kod
+
+                let stringsToAdd=strings.filter((x)=>x.toLowerCase().charCodeAt(0)===i).sort();
+                if(stringsToAdd.length===0)
+                    continue;
+                placeForAdding.innerHTML +=String.fromCharCode(i)+ ": "+
+                    stringsToAdd + "<br>"; // fromCharCode konventira od ASCII kod vo bukva
+            }
+
+        }
+    </script>
+</head>
+<body>
+<div>
+    <label>Enter strings: </label>
+    <input type="text" id="strings">
+</div>
+<button onclick="divide()">Divide in groups</button>
+<div id="placeForGroups"></div>
+</body>
+</html>
