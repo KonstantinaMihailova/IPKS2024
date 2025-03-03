@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Koordinati na tocka</title>
+    <script>
+        var x = prompt("Vnesi koordinati za x: ");
+        var y = prompt("Vnesi koordinati za y: ");
+        if (!isNaN(x) && !isNaN(y)) {
+            if (x < 0 && y > 0)
+                document.write("Tockata lezi vo I kvadrant");
+            if (x > 0 && y > 0)
+                document.write("Tockata lezi vo II kvadrant");
+            if (x < 0 && y < 0)
+                document.write("Tockata lezi vo III kvadrant");
+            if (x > 0 && y < 0)
+                document.write("Tockata lezi vo IV kvadrant");
+            if(x===0 && y===0)
+                document.write("Tockata lezi vo koordinatniot pocetok");
+        } else
+            document.write("Vrednostite ne se vo soodvetniot format");
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

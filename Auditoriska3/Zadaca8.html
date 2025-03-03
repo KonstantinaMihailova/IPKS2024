@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Secenje na string</title>
+    <script>
+        function cuttingString(string, character, type) {
+            index = string.search(character)
+            if (type === 'a') {
+                return string.substring(0, index)
+
+            } else {
+                return string.substring(index+1)
+            }
+
+        }
+
+        console.log(cuttingString('w3resource: JavaScript Exercises', ':', 'a'));
+        console.log(cuttingString('w3resource: JavaScript Exercises', 'E', 'b'));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

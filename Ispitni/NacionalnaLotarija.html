@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>National Lottery Game</title>
+    <style>
+        #right, #left {
+            position: absolute;
+        }
+
+        #right {
+            top: 70px;
+            left: 500px;
+        }
+
+        #left {
+            top: 70px;
+            left: 20px;
+        }
+
+        #placeForCards {
+            position: absolute;
+            top: 300px;
+        }
+
+        #title {
+            background: bisque;
+            width: 330px;
+            margin-top: 20px;
+
+        }
+
+        span{
+            margin: 7px;
+            border-radius: 30px;
+            border: 1px solid gray;
+            background: lightgrey;
+            padding: 7px;
+        }
+
+
+    </style>
+    <script>
+        let codes = []
+        let nums = []
+        let points = 0
+        let flag = true
+
+        function add() {
+            let nameSurname = document.getElementById("nameSurname").value
+            let amount = document.getElementById("amount").value
+            let code = document.getElementById("code").value
+            let comb = document.getElementById("combination").value
+            let bonus = document.getElementById("bonus").value
+
+            if (!nameSurname || !amount || !code || !comb) {
+                alert("Enter all fields!")
+                return;
+            }
+
+            if (!checkCode(code)) {
+                alert("Not unique code!")
+                return;
+            }
+            if (!checkCodeSyntax(code)) {
+                alert("Code sytnax isn't correct!")
+                return;
+            }
+            let numbers = comb.split(",")
+
+            let place = document.getElementById("placeForCards")
+            let card = document.createElement("span")
+            card.style.border = "1px solid black"
+            card.style.width = "190px"
+            card.style.height = "200px"
+            card.style.display = "inline-block"
+            card.innerHTML = "<p>Name: " + nameSurname + "</p><p>Code:" + code + "</p><p>Numbers: " + numbers.join(" ") + "</p><p style='display: none' class='getPaid' onclick='getPaid(this)'><button>Get Paid</button></p>"
+            card.setAttribute("amount",amount)
+            card.setAttribute("bonus",bonus)
+            place.append(card)
+            codes.push(code)
+            console.log(card)
+
+        }
+
+        function checkCode(code) {
+            for (let c of codes) {
+                if (c === code)
+                    return false
+            }
+            return true;
+        }
+
+        function checkCodeSyntax(code) {
+            let reg = /^[A-Za-z%!]+$/
+            return reg.test(code)
+
+        }
+
+        function getPaid(btn){
+            let row=btn.parentNode
+            let price=row.getAttribute("amount")
+            let bonus=row.getAttribute("bonus")
+            let counter=row.getAttribute("counter")
+
+            let amount=parseInt(price)+parseInt(counter)*30
+            if(bonus==="Yes")
+                amount+=500
+            points-=amount
+
+            let placeForPoints = document.getElementById("totalWin")
+            placeForPoints.innerHTML = "Total win: " + points
+
+            row.remove()
+
+        }
+
+        function getWeeklyComb() {
+
+            let space = document.getElementById("placeForBalls")
+
+            for (let i = 0; i < 7; i++) {
+                let number = document.createElement("span")
+                let num = Math.floor(Math.random() * 31 + 1)
+                nums.push(num)
+                number.innerHTML = num.toString() + " "
+                if (i % 2 === 0)
+                    number.style.background = "lightpink"
+                else
+                    number.style.background = "lightgreen"
+
+
+                number.style.borderRadius = "50%"
+                number.style.padding = "5px"
+                space.append(number)
+            }
+
+            let btns = document.getElementsByClassName("getPaid")
+
+            for (let i = 0; i < btns.length; i++) {
+                btns[i].style.display = "block"
+            }
+            checkCards()
+
+        }
+
+        function checkCards() {
+            let amount = document.getElementById("amount").value
+
+            let place = document.getElementById("placeForCards")
+            for (let child of place.children) {
+                let numbersCard = child.children[2].innerHTML
+                numbersCard = numbersCard.substring(9)
+                numbersCard = numbersCard.split(" ")
+                let counter = 0
+                let bonus=child.getAttribute("bonus")
+
+
+                for (let i = 0; i < numbersCard.length; i++) {
+                    for (let j = 0; j < nums.length; j++) {
+                        if (parseInt(numbersCard[i]) === parseInt(nums[j]))
+                            counter++
+                    }
+                }
+
+                if (counter <= 3)
+                    child.style.background = "lightyellow"
+
+                if (counter === 4 || counter === 5)
+                    child.style.background = "lightblue"
+
+                if (counter > 5)
+                    child.style.background = "green"
+
+                child.setAttribute("counter",counter)
+
+                points = parseInt(points)
+                points += parseInt(amount) + parseInt(counter) * 30
+
+                if (bonus === "Yes") {
+                    points += 500
+                }
+
+                let placeForPoints = document.getElementById("totalWin")
+                placeForPoints.innerHTML = "Total win: " + points
+
+
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+<h1 id="title">National Lottary Game</h1>
+<div id="left">
+    <h2>Assign form</h2>
+    <div>
+        <label>Name and surname: </label>
+        <input type="text" id="nameSurname">
+    </div>
+    <div>
+        <label>Amount: </label>
+        <input type="text" id="amount">
+    </div>
+    <div>
+        <label>Code: </label>
+        <input type="text" id="code">
+    </div>
+    <div>
+        <label>Combination: </label>
+        <input type="text" id="combination">
+    </div>
+    <div>
+        <label>Bonus</label>
+        <select id="bonus">
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+    </div>
+    <button onclick="add()">Add</button>
+</div>
+
+<div id="right">
+    <h2>Lucky numbers</h2>
+    <div id="placeForBalls"></div>
+    <button style="margin: 10px" onclick="getWeeklyComb()">Get weekly combination</button>
+    <p id="totalWin"></p>
+</div>
+
+<div id="placeForCards">
+
+</div>
+
+</body>
+</html>

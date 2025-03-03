@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pecatenje atributi na ekran</title>
+    <script>
+        function getAttributes(){
+            attrHref=document.getElementById("finki").href
+            attrHrefLang=document.getElementById("finki").hreflang
+            attrRel=document.getElementById("finki").rel
+            attrTarget=document.getElementById("finki").target
+            attrType=document.getElementById("finki").type
+            console.log(attrHref+", "+attrHrefLang+", "+attrRel+", "+attrTarget+", "+attrType);
+        }
+
+
+
+    </script>
+</head>
+<body>
+<p><a id="finki" type="text/html" hreflang="enus" rel="nofollow" target="_self"
+      href="http://www.w3 resource.com/">finki</a></p>
+<button onclick="getAttributes()">Click here to get attributes value</button>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generiranje ocenka</title>
+    <script>
+        var poeni=prompt("Vnesi poeni od ispit: ");
+        var ocenka;
+        if(poeni>0 && poeni<=50)
+            ocenka=5
+        if(poeni>50 && poeni<=60)
+            ocenka=6
+        if(poeni>60 && poeni<=70)
+            ocenka=7
+        if(poeni>70 && poeni<=80)
+            ocenka=8
+        if(poeni>80 && poeni<=90)
+            ocenka=9
+        if(poeni>90)
+            ocenka=10
+
+        document.write("Studentot ima ocenka "+ocenka);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

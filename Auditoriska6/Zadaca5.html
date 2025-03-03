@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Perimtar i plostina na krug</title>
+
+    <script>
+        function circle(radius){
+            this.radius=radius
+            this.area=function (){
+                return this.radius*this.radius*Math.PI
+            }
+            this.perimeter=function (){
+                return 2*this.radius*Math.PI
+            }
+        }
+
+        let c=new circle(3)
+
+        console.log("Area= ",c.area().toFixed(2));
+        console.log("Perimeter: ",c.perimeter().toFixed(2))
+    </script>
+</head>
+<body>
+
+</body>
+</html>

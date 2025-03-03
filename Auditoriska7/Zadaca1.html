@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vrakanje na prvite n elementi</title>
+    <script>
+        function first(array, n){
+            let newArray=[]
+
+            if(array.length<n)
+                n=array.length
+
+            for (let i = 0; i < n; i++) {
+                newArray.push(array[i])
+            }
+            return newArray
+        }
+        console.log(first([], 3));
+        console.log(first([7, 9, 0, -2], 3));
+        console.log(first([7, 9, 0, -2], 6));
+        console.log(first([7, 9, 0, -2], -3));
+    </script>
+</head>
+<body>
+
+</body>
+</html>

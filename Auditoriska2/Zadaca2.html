@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Postavuvanje crvena pozadina na paragrafite</title>
+    <script>
+        function backgroundChange(){
+
+            pElements=document.getElementsByTagName("p");
+
+            for(i=0;i<pElements.length;i++){
+                pElements[i].style.background="rgb(255,0,0)";
+
+            }
+
+        }
+    </script>
+</head>
+<body>
+<input type="button" value="Click to set paragraph back ground color" onclick="backgroundChange()">
+<p>Paragraph 1</p>
+<p>Paragraph 2</p>
+<p>Paragraph 3</p>
+</body>
+</html>

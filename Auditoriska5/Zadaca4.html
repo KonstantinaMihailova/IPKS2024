@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generiranje kopcija</title>
+    <script>
+        function addButtons(){
+            let numberBtn=document.getElementById("number").value
+            let typeBtn=document.getElementById("type").value
+            let place=document.getElementById("placeForButtons")
+            numberBtn=parseInt(numberBtn)
+            let counter=0;
+            counter=parseInt(counter)
+
+            for (let i = 0; i < numberBtn; i++) {
+                if(typeBtn==="Checkbox"){
+                    element=document.createElement("input")
+                    element.setAttribute("type","checkbox")
+                }else{
+                    element=document.createElement("input")
+                    element.setAttribute("type","radio")
+                }
+                let numberCounter=document.createElement("span")
+                numberCounter.innerHTML=counter
+                place.append(element)
+                place.append(numberCounter)
+                counter++;
+            }
+        }
+    </script>
+</head>
+<body>
+<div>
+    <label>Numbers of elements: </label>
+    <input type="text" id="number">
+</div>
+<div>
+    <label>Type: </label>
+    <select id="type">
+        <option>Checkbox</option>
+        <option>Radio</option>
+    </select>
+</div>
+<button onclick="addButtons()">Add</button>
+<div id="placeForButtons">
+
+</div>
+</body>
+</html>

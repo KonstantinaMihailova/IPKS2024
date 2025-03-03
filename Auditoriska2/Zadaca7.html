@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Presmetka na volumen na sfera</title>
+    <script>
+        function calculate(event){
+            event.preventDefault()
+            var radius=document.getElementById("radius").value;
+            var volumeText=document.getElementById("volume")
+            radius=parseFloat(radius);
+            var volume=(4/3)*3.14*radius*radius*radius;
+            volumeText.value=parseFloat(volume).toFixed(2);
+        }
+    </script>
+</head>
+<body>
+<h3> Input radius value and get the volume of a sphere</h3>
+<form onsubmit="calculate(event)">
+    <div>
+        <label>Radius</label>
+        <input type="text" id="radius">
+    </div>
+   <div>
+       <label>Volume</label>
+       <input type="text" id="volume">
+   </div>
+    <button type="submit">Calculate</button>
+</form>
+
+</body>
+</html>

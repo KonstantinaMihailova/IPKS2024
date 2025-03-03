@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Naoganje na maksimalna vrednost</title>
+    <script>
+        var input=prompt("Vnesi broj: ");
+        input=parseInt(input);
+        var max=parseInt(input);
+        while (!isNaN(input)){
+            if(input>max)
+                max=input;
+            input=prompt("Vnesi broj: ");
+            input=parseInt(input);
+        }
+        document.write("Maksimalniot broj e: "+max);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

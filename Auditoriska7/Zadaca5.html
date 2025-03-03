@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unija od dve nizi</title>
+    <script>
+        // function union(arr1,arr2){
+        //     let newArray=arr1.concat(arr2)
+        //     let result=[...new Set(newArray)]
+        //     return result;
+        // }  // OVOA E TOCNO RESENIE AMA SO GOTOVA FUNKCIJA 'SET' ZA UNIQUE ELEMENTI U NIZA
+
+        function union(arr1,arr2){
+            let newArray=arr1.concat(arr2)
+            let result=[]
+
+            for (let i = 0; i <newArray.length; i++) {
+                if(!newArray.slice(i+1).includes(newArray[i]))
+                {
+                    result.push(newArray[i])
+                }
+            }
+
+            return result
+        }
+
+        console.log(union([1, 2, 3,100,10,15,3,2,5], [100, 2, 1, 10]))
+    </script>
+</head>
+<body>
+
+</body>
+</html>

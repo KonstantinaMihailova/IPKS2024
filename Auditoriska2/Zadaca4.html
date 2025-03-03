@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dali brojot e prost</title>
+    <script>
+        function isPrime(n) {
+            if (n === 1)
+                return false;
+            if (n === 2)
+                return true;
+            else
+                for (var x = 2; x < n; x++) {
+                    if (n % x === 0)
+                        return false;
+                }
+            return true;
+        }
+
+        var number = Math.floor(Math.random() * 100) + 1;
+        if(isPrime(number)){
+            console.log("Brojot "+number+" e prost broj")
+        }else{
+            console.log("Brojot "+number+" ne e prost broj");
+        }
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

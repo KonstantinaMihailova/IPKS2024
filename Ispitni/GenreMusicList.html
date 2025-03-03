@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tabela so zanrovi na muzika</title>
+    <style>
+
+        table, th, td, tr {
+            border: 1px solid black;
+            border-collapse: collapse;
+            margin: 10px;
+        }
+
+        th, td {
+            width: 150px;
+            text-align: center;
+            height: 30px;
+        }
+
+        input {
+            width: 40px;
+            margin: 5px;
+        }
+
+        button {
+            margin: 10px;
+        }
+
+        button{
+            background: darksalmon;
+        }
+    </style>
+    <script>
+        let allItems=[]
+
+        let data = '[{"artist":"Marc", "title":"TheWorks", "genre":"Pop", "releaseYear":"2022"}, ' +
+            '{"artist":"James", "title":"Jinx", "genre":"Rock", "releaseYear":"2021"},' +
+            '{"artist":"Jayne", "title":"Roll", "genre":"Blues", "releaseYear":"2023"},' +
+            '{"artist":"Alfie", "title":"MegaGiga", "genre":"Pop", "releaseYear":"2019"},' +
+            '{"artist":"Rick", "title":"Extract", "genre":"Rock", "releaseYear":"2028"},' +
+            '{"artist":"William", "title":"Extract", "genre":"Blues", "releaseYear":"2026"}]'
+
+        data = JSON.parse(data)
+
+        window.onload = function () {
+            let genres = []
+
+            for (let song of data) {
+                genres.push(song.genre)
+            }
+
+            genres = [...new Set(genres)]
+
+            let selectList = document.getElementById("genreMusic")
+
+            for (const genre of genres) {
+                let newGenre = document.createElement("option")
+                newGenre.innerHTML = genre
+                selectList.append(newGenre)
+            }
+        }
+
+        function goUp(btn){
+            let row=btn.parentNode.parentNode
+            let rowUpper=row.previousSibling
+
+            let indexUpper=allItems.indexOf(rowUpper)
+            let indexTheRow=allItems.indexOf(row)
+
+            if(indexUpper!==-1){
+                allItems[indexTheRow]=rowUpper;
+                allItems[indexUpper]=row;
+            }
+
+            let tabela=document.getElementById("tabela")
+            tabela.innerHTML=" <thead>\n" +
+                "    <th>ID</th>\n" +
+                "    <th>Artist</th>\n" +
+                "    <th>Title</th>\n" +
+                "    <th>Genre</th>\n" +
+                "    <th>Release Year</th>\n" +
+                "    <th>Move</th>\n" +
+                "    </thead>"
+
+            for (let item of allItems) {
+                tabela.append(item)
+            }
+
+        }
+
+        function goDown(btn){
+            let row=btn.parentNode.parentNode
+            let rowUnder=row.nextSibling
+
+            let indexUnder=allItems.indexOf(rowUnder)
+            let indexTheRow=allItems.indexOf(row)
+
+            if(indexUnder!==-1){
+                allItems[indexTheRow]=rowUnder;
+                allItems[indexUnder]=row;
+            }
+
+            let tabela=document.getElementById("tabela")
+            tabela.innerHTML=" <thead>\n" +
+                "    <th>ID</th>\n" +
+                "    <th>Artist</th>\n" +
+                "    <th>Title</th>\n" +
+                "    <th>Genre</th>\n" +
+                "    <th>Release Year</th>\n" +
+                "    <th>Move</th>\n" +
+                "    </thead>"
+
+            for (let item of allItems) {
+                tabela.append(item)
+            }
+
+        }
+
+        function mix() {
+            let numSongs = document.getElementById("numSongs").value
+            let selectedGenre = document.getElementById("genreMusic").value
+            let neededSongs = []
+
+            for (const song of data) {
+                if(selectedGenre==="All")
+                    neededSongs.push(song)
+                if (song.genre === selectedGenre)
+                    neededSongs.push(song)
+            }
+
+            if (numSongs < neededSongs.length) {
+                neededSongs=neededSongs.slice(0, numSongs)
+            }
+
+
+            for (let neededSong of neededSongs) {
+                let tabela=document.getElementById("tabela")
+                let row=document.createElement("tr")
+
+                let title=neededSong.title
+                let artist=neededSong.artist
+                let titleArtist=title+artist
+                let id=titleArtist.split("").filter(x=>isUpper(x)).join("")
+
+                row.innerHTML="<td>"+id+"</td><td>"+artist+"</td><td>"+title+"</td><td>"+neededSong.genre+"</td><td>"+neededSong.releaseYear+"</td><td><button onclick='goUp(this)'>UP</button><button onclick='goDown(this)'>DOWN</button></td>"
+                tabela.append(row)
+                allItems.push(row)
+
+            }
+
+        }
+
+        function isUpper(char) {
+            return char === char.toUpperCase();
+        }
+    </script>
+</head>
+<body>
+<div>
+    <label>Get</label>
+    <input type="number" id="numSongs">songs
+</div>
+<div>
+    <label>Genre</label>
+    <select id="genreMusic">
+        <option>All</option>
+    </select>
+</div>
+<button onclick="mix()">Mix</button>
+
+<table id="tabela">
+    <thead>
+    <th>ID</th>
+    <th>Artist</th>
+    <th>Title</th>
+    <th>Genre</th>
+    <th>Release Year</th>
+    <th>Move</th>
+    </thead>
+</table>
+
+</body>
+</html>

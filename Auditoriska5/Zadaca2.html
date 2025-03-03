@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vnesuvanje na podatoci vo tabela + Zadaca3</title>
+    <style>
+        table,tbody,thead,th,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+    <script>
+        var totalCost=0;
+        totalCost=parseInt(totalCost)
+
+        function remove(button){
+            let total=document.getElementById("total")
+            let row=button.parentNode.parentNode;
+            let cost=row.children[2].innerHTML
+            cost=parseInt(cost)
+            totalCost-=cost;
+            total.innerHTML=totalCost;
+            row.remove();
+        }
+
+        function add(){
+            let author=document.getElementById("author").value;
+            let project=document.getElementById("project").value;
+            let cost=document.getElementById("cost").value;
+            let total=document.getElementById("total")
+
+
+            if(author.length===0 || project.length===0 || cost.length===0) {
+                alert("Enter all fields!")
+                return;
+            }
+
+            let tabela=document.getElementById("table")
+            let row=document.createElement("tr");
+            row.innerHTML="<td>"+author+"</td><td>"+project+"</td><td>"+cost+"</td><td><button onclick='remove(this)'>Remove</button></td>"
+
+            cost=parseInt(cost)
+            totalCost+=cost;
+            total.innerHTML=totalCost;
+
+            tabela.append(row)
+            document.getElementById("author").value=""
+            document.getElementById("project").value=""
+            document.getElementById("cost").value=""
+        }
+    </script>
+</head>
+<body>
+<h1>Project details</h1>
+<div>
+    <label>Author</label>
+    <input type="text" id="author">
+</div>
+<div>
+    <label>Project</label>
+    <input type="text" id="project">
+</div>
+<div>
+    <label>Cost</label>
+    <input type="text" id="cost">
+</div>
+<input type="button" value="Add" onclick="add()">
+
+<h2>Project list - Total cost: <span id="total"></span></h2>
+<table id="table">
+    <thead>
+    <th>Author</th>
+    <th>Project</th>
+    <th>Cost</th>
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+</body>
+</html>

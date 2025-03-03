@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proverka na prestapna godina</title>
+    <script>
+        var godina = prompt("Vnesi godina: ");
+        if (!isNaN(godina)) {
+            if ((godina % 4 === 0 && godina % 100 !== 0) || godina % 400 === 0) {
+                document.write(godina + " e prestapna godina");
+            } else {
+                document.write(godina + " ne e prestapna godina");
+            }
+        }else{
+            document.write("Ne ste vnele tocen format!");
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

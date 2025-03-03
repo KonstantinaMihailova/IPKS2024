@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Random string game</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+    <style>
+
+    </style>
+    <script>
+        let heksa='123456789ABCDEF'
+        let letters='QWERTYUIOPASDFGHJKLZXCVBNM'
+
+
+        window.onload=function (){
+
+            for (let i = 0; i < 50; i++) {
+                let newString=""
+                let place=document.getElementById("placeForStrings")
+                let length=Math.floor(Math.random()*7)+3
+                let color="#"
+
+                for (let j = 0; j < 6; j++) {
+                    color+=heksa[Math.floor(Math.random()*heksa.length)]
+                }
+
+                for (let j = 0; j < length; j++) {
+                    newString+=letters[Math.floor(Math.random()*letters.length)]
+                }
+
+                let theWord=document.createElement("span")
+                theWord.style.background=color
+                theWord.textContent=newString
+                theWord.style.margin="5px"
+                theWord.style.display="inline-block"
+                theWord.setAttribute("onclick","addWord(this)")
+                place.append(theWord)
+            }
+        }
+
+        function addWord(word){
+            let placeUnder=document.getElementById("placeUnder")
+            word.remove()
+            placeUnder.append(word)
+        }
+
+        function checkWords(){
+            let inputedWords=document.getElementById("placeUnder").children
+            let word=inputedWords[0]
+            for (let i = 0; i < inputedWords.length-1; i++,word=inputedWords[i]) {
+                let nextWord=inputedWords[i+1].innerHTML
+               word=word.innerHTML
+                console.log(word.charAt(word.length-1))
+                if(word.charAt(word.length-1)!==nextWord.charAt(0)){
+                    alert("You failed! Try again")
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function check(){
+            let inputedWords=document.getElementById("placeUnder")
+            let points=0
+            console.log(inputedWords)
+            for (let i = 0; i < inputedWords.children.length; i++) {
+                points+=inputedWords.children[i].innerHTML.length
+
+                anime({
+                    targets: inputedWords.children[i],
+                    opacity:0,
+                    easing: "easeInQuad",
+                    duration:1300,
+                    complete: ()=>{
+                        inputedWords.children[i].remove()
+                    }
+                })
+            }
+            if(checkWords()){
+                alert("Congrats! You earned: "+points+" points")
+            }
+        }
+
+
+
+    </script>
+</head>
+<body>
+<div id="placeForStrings"></div>
+<hr>
+<div id="placeUnder"></div>
+<button onclick="check()">Check</button>
+
+
+</body>
+</html>

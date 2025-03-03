@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rabota na casovnik</title>
+    <script>
+        function MyClock(){
+            this.start=function (){
+                this.interval = setInterval(updateTime, 1000);
+            }
+            this.stop=function (){
+                clearInterval(this.interval)
+            }
+        }
+
+        function updateTime(){
+            let recentDate = new Date();
+            let element=document.getElementById("clock")
+            element.innerHTML=recentDate.getHours().toString()+ ":" + recentDate.getMinutes().toString() + ":" + recentDate.getSeconds().toString()
+        }
+
+        let clock=new MyClock()
+        clock.start()
+
+    </script>
+</head>
+<body>
+<div id="clock"></div>
+</body>
+</html>

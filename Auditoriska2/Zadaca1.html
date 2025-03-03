@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Menuvanje stil na paragraf</title>
+    <script>
+        function applyStyle(){
+            element=document.getElementById("text");
+            element.style.fontSize="14pt";
+            element.style.font="Comic Sans MS";
+            element.style.color="green";
+        }
+    </script>
+</head>
+<body>
+<p id='text'>Change my style</p>
+<div>
+    <button id="jsstyle" onclick="applyStyle()">Style</button>
+</div>
+
+</body>
+</html>

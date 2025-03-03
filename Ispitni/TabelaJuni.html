@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product table</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+    <style>
+        table,th,td,tr{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        td{
+            width: 300px;
+            height: 30px;
+            text-align: center;
+
+        }
+        table{
+            margin: 30px;
+        }
+    </style>
+    <script>
+        let allProducts=[]
+        let flag=true
+        const initialData = [
+            { name: "Product 1", price: "$10", color: "red" },
+            { name: "Product 2", price: "$20", color: "green" },
+            { name: "Product 3", price: "$30", color: "blue" }
+        ];
+
+        window.onload=function (){
+            let tabela=document.getElementById("tabela")
+
+            for (let product of initialData) {
+                let row=document.createElement("tr")
+                row.innerHTML="<td>"+product.name+"</td><td>"+product.price+"</td><td>"+product.color+"</td>"
+                tabela.append(row)
+                row.style.background=product.color
+                row.setAttribute("onclick","updateRow(this)")
+                allProducts.push(row)
+            }
+
+        }
+
+        function add(){
+            let tabela=document.getElementById("tabela")
+
+            let name=document.getElementById("name").value
+            let price=document.getElementById("price").value
+            let color=document.getElementById("color").value
+
+            let row=document.createElement("tr")
+            row.innerHTML="<td>"+name+"</td><td>"+price+"</td><td>"+color+"</td>"
+            tabela.append(row)
+
+            row.style.background=color
+            row.setAttribute("onclick","updateRow(this)")
+            allProducts.push(row)
+        }
+
+        function updateRow(row){
+            anime({
+                targets:row,
+                opacity:0,
+                easing: "easeInOutQuad",
+                duration:1000,
+                complete: function (){
+                    row.remove()
+                    allProducts = allProducts.filter(item => item !== row);
+                }
+            })
+        }
+
+        function sortName(){
+            flag=!flag
+
+            allProducts.sort((a,b) => {
+                let nameA=a.children[0].textContent.trim().toLowerCase()
+                let nameB=b.children[0].textContent.trim().toLowerCase()
+                console.log(nameA)
+                console.log(nameB)
+                if(flag){
+                    return nameA.localeCompare(nameB)
+                }else{
+                    return nameB.localeCompare(nameA)
+                }
+            })
+
+            let tabela=document.getElementById("tabela")
+            tabela.innerHTML="<thead>\n" +
+                "<td onclick=\"sortName()\">Name</td>\n" +
+                "<td onclick=\"sortPrice()\">Price</td>\n" +
+                "<td onclick=\"sortColor()\">Color</td>\n" +
+                "</thead>"
+
+            for (let product of allProducts) {
+                tabela.append(product)
+            }
+        }
+
+        function sortPrice(){
+            flag=!flag
+
+            allProducts.sort((a,b) => {
+                let nameA=a.children[1].textContent.trim().toLowerCase()
+                let nameB=b.children[1].textContent.trim().toLowerCase()
+                console.log(nameA)
+                console.log(nameB)
+                if(flag){
+                    return nameA.localeCompare(nameB)
+                }else{
+                    return nameB.localeCompare(nameA)
+                }
+            })
+
+            let tabela=document.getElementById("tabela")
+            tabela.innerHTML="<thead>\n" +
+                "<td onclick=\"sortName()\">Name</td>\n" +
+                "<td onclick=\"sortPrice()\">Price</td>\n" +
+                "<td onclick=\"sortColor()\">Color</td>\n" +
+                "</thead>"
+
+            for (let product of allProducts) {
+                tabela.append(product)
+            }
+        }
+
+        function sortColor(){
+            flag=!flag
+
+            allProducts.sort((a,b) => {
+                let nameA=a.children[2].textContent.trim().toLowerCase()
+                let nameB=b.children[2].textContent.trim().toLowerCase()
+                console.log(nameA)
+                console.log(nameB)
+                if(flag){
+                    return nameA.localeCompare(nameB)
+                }else{
+                    return nameB.localeCompare(nameA)
+                }
+            })
+
+            let tabela=document.getElementById("tabela")
+            tabela.innerHTML="<thead>\n" +
+                "<td onclick=\"sortName()\">Name</td>\n" +
+                "<td onclick=\"sortPrice()\">Price</td>\n" +
+                "<td onclick=\"sortColor()\">Color</td>\n" +
+                "</thead>"
+
+            for (let product of allProducts) {
+                tabela.append(product)
+            }
+        }
+
+        console.log(allProducts)
+
+    </script>
+    </style>
+</head>
+<body>
+<table id="tabela">
+<thead>
+<td onclick="sortName()">Name</td>
+<td onclick="sortPrice()">Price</td>
+<td onclick="sortColor()">Color</td>
+</thead>
+</table>
+<div>
+    <label>Name:</label>
+    <input type="text" id="name">
+</div>
+<div>
+    <label>Price:</label>
+    <input type="text" id="price">
+</div>
+<div>
+    <label>Color:</label>
+    <input type="color" id="color">
+</div>
+<button onclick="add()">Add Product</button>
+
+</body>
+</html>

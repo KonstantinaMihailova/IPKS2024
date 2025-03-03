@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vmetnuvanje string na odredena pozicija</title>
+    <script>
+        function insert(string1, string2, position){
+            end=string1.substring(position);
+            start=string1.substring(0,position);
+            newString=start+string2+end;
+            return newString;
+        }
+
+        console.log(insert('Konstantina jade banana.','vkusna ',17))
+    </script>
+</head>
+<body>
+
+</body>
+</html>

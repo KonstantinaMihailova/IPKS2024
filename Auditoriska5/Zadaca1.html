@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Potvrda na podatoci</title>
+    <script>
+        function send(){
+            document.getElementById("message").value=" "
+            let name=document.getElementById("name").value;
+            let surname=document.getElementById("surname").value
+            let email=document.getElementById("email").value
+            let age=document.getElementById("age").value
+            if(name.length===0 || surname.length===0 || email.length===0 || age.selected===false){
+                alert("Enter all inputs!")
+                return 0;
+            }
+            if(confirm("Are you sure, "+name+"?"))
+            {
+                document.getElementById("message").value="Your data is send"
+            }
+            else{
+                alert("Your data is not send")
+            }
+
+        }
+    </script>
+</head>
+<body>
+<h1>Form</h1>
+<div>
+    <label>Name</label>
+    <input type="text" id="name">
+</div>
+<div>
+    <label>Surname</label>
+    <input type="text" id="surname">
+</div>
+<div>
+    <label>E-mail</label>
+    <input type="text" id="email">
+</div>
+<div>
+    <label>Age</label>
+    <select id="age">
+        <option>19</option>
+        <option>20</option>
+        <option>21</option>
+        <option>22</option>
+    </select>
+</div>
+<button onclick="send()">Send</button>
+<div>
+    <input disabled="true" id="message">
+</div>
+
+</body>
+</html>

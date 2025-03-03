@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <style>
+        #theDiv{
+            margin: 10px;
+        }
+    </style>
+    <script>
+        let data = '[{"background-color":"red", "width":"100px", "height":"100px"}, ' +
+            '{"background-color":"green", "width":"50px", "height":"100px"}, ' +
+            '{"background-color":"blue", "width":"100px", "height":"50px"}]';
+
+        data = JSON.parse(data);
+
+        let index=0
+
+        window.onload=function (){
+            let placeForDiv = document.getElementById("placeForTheDiv");
+            let theDiv = document.createElement("div");
+            theDiv.style.background = data[index]["background-color"];
+            theDiv.style.width = data[index].width;
+            theDiv.style.height = data[index].height;
+            theDiv.setAttribute("id", "theDiv");
+
+            placeForDiv.append(theDiv)
+
+        }
+
+        function goLeft(){
+                index++;
+                if(index>=data.length)
+                    index=0
+                let theDiv = document.getElementById("theDiv");
+                let placeForDiv = document.getElementById("placeForTheDiv");
+
+                anime({
+                    targets: theDiv,
+                    translateX: -160+"px",
+                    duration: 1500,
+                    easing:"linear",
+                    complete: function (){
+                        let newDiv=document.createElement("div")
+                        newDiv.style.background = data[index]["background-color"];
+                        newDiv.style.width = data[index].width;
+                        newDiv.style.height = data[index].height;
+                        newDiv.style.right="-50px"
+                        newDiv.style.top="40px"
+                        newDiv.style.position="absolute"
+                        placeForDiv.append(newDiv)
+                        anime({
+                            targets: newDiv,
+                            left: "40px",
+                            duration: 4000,
+                            easing:"linear"
+                        })
+                        theDiv.remove()
+                        newDiv.setAttribute("id","theDiv")
+                    }
+                });
+
+        }
+
+        function goRight(){
+            index++;
+            if(index>=data.length)
+                index=0
+            let theDiv = document.getElementById("theDiv");
+            let placeForDiv = document.getElementById("placeForTheDiv");
+
+            anime({
+                targets: theDiv,
+                translateX: window.innerWidth+10+"px",
+                duration: 3000,
+                easing:"linear",
+                complete: function (){
+                    let newDiv=document.createElement("div")
+                    newDiv.style.background = data[index]["background-color"];
+                    newDiv.style.width = data[index].width;
+                    newDiv.style.height = data[index].height;
+                    newDiv.style.left="-30px"
+                    newDiv.style.top="40px"
+                    newDiv.style.position="absolute"
+                    placeForDiv.append(newDiv)
+                    anime({
+                        targets: newDiv,
+                        translateX: [40+"px"],
+                        duration: 2000
+                    })
+                    theDiv.remove()
+                    newDiv.setAttribute("id","theDiv")
+                }
+            });
+
+        }
+
+    </script>
+</head>
+<body>
+<div>
+    <button onclick="goLeft()"><</button>
+    <button onclick="goRight()">></button>
+</div>
+<div id="placeForTheDiv"></div>
+
+</body>
+</html>

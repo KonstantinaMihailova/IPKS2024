@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+    <style>
+        div{
+            position: absolute;
+            top:200px;
+            left: 600px;
+        }
+
+        button{
+            margin-left: 10px;
+        }
+    </style>
+    <script>
+        let index=0
+        let points=0
+        let jsonParsed=[{
+            "question": "A flashing red traffic light signifies that a driver should do what?",
+            "A": "stop",
+            "B": "speed up",
+            "C": "proceed with caution",
+            "D": "honk the horn",
+            "answer": "A"
+        }, {
+            "question": "A knish is traditionally stuffed with what filling?",
+            "A": "potato",
+            "B": "creamed corn",
+            "C": "lemon custard",
+            "D": "raspberry jelly",
+            "answer": "A"
+        }, {
+            "question": "A pita is a type of what?",
+            "A": "fresh fruit",
+            "B": "flat bread",
+            "C": "French tart",
+            "D": "friend bean dip",
+            "answer": "B"
+        }, {
+            "question": "A portrait that comically exaggerates a person's physical traits is called a what?",
+            "A": "landscape",
+            "B": "caricature",
+            "C": "still life",
+            "D": "Impressionism",
+            "answer": "B"
+        }];
+
+        //let jsonParsed=JSON.parse(data)
+
+
+        window.onload=function (){
+            updateQuestion(index)
+        }
+
+        function updateQuestion(i){
+            let place=document.getElementById("placeForQuestion")
+
+            if(index>3){
+
+                place.innerHTML="<h1>End of quiz</h1>"+"</br><h2>Points:"+points+"</h2>"
+                return;
+            }
+
+            let questionP=document.createElement("p")
+            questionP.innerHTML=jsonParsed[i].question
+
+            let checkA=document.createElement("input")
+            checkA.setAttribute("type","radio")
+            checkA.setAttribute("name","answ")
+            checkA.setAttribute("class","A")
+            let answerA=document.createElement("p")
+            answerA.innerHTML=jsonParsed[i].A
+
+            let checkB=document.createElement("input")
+            checkB.setAttribute("type","radio")
+            checkB.setAttribute("name","answ")
+            checkB.setAttribute("class","B")
+            let answerB=document.createElement("p")
+            answerB.innerHTML=jsonParsed[i].B
+
+            let checkC=document.createElement("input")
+            checkC.setAttribute("type","radio")
+            checkC.setAttribute("name","answ")
+            checkC.setAttribute("class","C")
+            let answerC=document.createElement("p")
+            answerC.innerHTML=jsonParsed[i].C
+
+            let checkD=document.createElement("input")
+            checkD.setAttribute("type","radio")
+            checkD.setAttribute("name","answ")
+            checkD.setAttribute("class","D")
+            let answerD=document.createElement("p")
+            answerD.innerHTML=jsonParsed[i].D
+
+            place.append(questionP.innerHTML)
+            place.append(document.createElement("br"))
+            place.append(checkA)
+            place.append(answerA.innerHTML)
+            place.append(document.createElement("br"))
+            place.append(checkB)
+            place.append(answerB.innerHTML)
+            place.append(document.createElement("br"))
+            place.append(checkC)
+            place.append(answerC.innerHTML)
+            place.append(document.createElement("br"))
+            place.append(checkD)
+            place.append(answerD.innerHTML)
+
+            let btn=document.createElement("button")
+            btn.innerHTML="Next"
+            btn.setAttribute("onclick","next()")
+            place.append(btn)
+
+        }
+
+        function next(){
+            let place=document.getElementById("placeForQuestion")
+
+            console.log("goes here")
+            let theDiv=document.getElementById("placeForQuestion")
+
+            index++
+            anime({
+                targets: theDiv,
+                easing:"linear",
+                //direction: "reverse",
+                duration:2000,
+                translateX: -window.innerHeight-350+"px",
+                complete: function (){
+                    place.innerHTML=""
+
+                    updateQuestion(index)
+
+                    anime({
+                        targets: theDiv,
+                        easing:"linear",
+                        direction: "reverse",
+                        duration:2000,
+                        translateX: [0,window.innerWidth + 300 + "px"],
+                    })
+
+                }
+            })
+
+            points=checkAnswer(theDiv)
+        }
+
+        function checkAnswer(theDiv){
+            if(index<=3){
+                let allRadio=theDiv.getElementsByTagName("input")
+                console.log(allRadio)
+                let answer;
+                for (let i = 0; i < allRadio.length; i++) {
+                    if(allRadio[i].checked)
+                        answer=allRadio[i]
+                }
+
+                if(answer.getAttribute("class")===jsonParsed[index].answer)
+                    points++;
+            }
+
+            return points;
+        }
+    </script>
+</head>
+<body>
+<div id="placeForQuestion">
+</div>
+
+
+
+</body>
+</html>

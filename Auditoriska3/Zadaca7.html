@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Brisenje na prvo pojavuvanje na podstring</title>
+    <script>
+        function deleteSubstring(searchStr, str){
+            index=searchStr.search(str);
+            return searchStr.substring(0,index-1).concat(searchStr.substring(index+str.length))
+        }
+        console.log(deleteSubstring("The quick brown fox jumps over the lazy dog", 'the'))
+    </script>
+</head>
+<body>
+
+</body>
+</html>

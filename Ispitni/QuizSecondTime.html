@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+    <style>
+        div {
+            position: absolute;
+            left: 300px;
+            top: 80px;
+            width: 400px;
+            height: 400px;
+        }
+    </style>
+    <script>
+        let data = [{
+            "question": "A flashing red traffic light signifies that a driver should do what?",
+            "A": "stop",
+            "B": "speed up",
+            "C": "proceed with caution",
+            "D": "honk the horn",
+            "answer": "A"
+        }, {
+            "question": "A knish is traditionally stuffed with what filling?",
+            "A": "potato",
+            "B": "creamed corn",
+            "C": "lemon custard",
+            "D": "raspberry jelly",
+            "answer": "A"
+        }, {
+            "question": "A pita is a type of what?",
+            "A": "fresh fruit",
+            "B": "flat bread",
+            "C": "French tart",
+            "D": "friend bean dip",
+            "answer": "B"
+        }, {
+            "question": "A portrait that comically exaggerates a person's physical traits is called a what?",
+            "A": "landscape",
+            "B": "caricature",
+            "C": "still life",
+            "D": "Impressionism",
+            "answer": "B"
+        }];
+
+        //data = JSON.parse(data)
+        let index = 0
+        let points=0
+
+        window.onload = function () {
+            fullFill()
+        }
+
+        function fullFill() {
+            let space=document.getElementById("spaceForQuestion")
+
+            if(index>=data.length){
+                space.innerHTML="<h1>End of Quiz!</h1><h2>You scored: "+points+"</h2>"
+                space.setAttribute("id","theDiv")
+            }else{
+                let element = document.createElement("div")
+                let question = document.createElement("p")
+                question.textContent = data[0].question
+                element.append(question)
+
+                let answerA = document.createElement("span")
+                answerA.textContent=data[index].A
+                let radioButtonA = document.createElement("input")
+                radioButtonA.setAttribute("type", "radio")
+                radioButtonA.setAttribute("value", "A")
+                element.append(radioButtonA,answerA)
+                newLine=document.createElement("br")
+                element.append(newLine)
+
+                let answerB = document.createElement("span")
+                answerB.innerHTML=data[index].B
+                let radioButtonB = document.createElement("input")
+                radioButtonB.setAttribute("type", "radio")
+                radioButtonB.setAttribute("value", "B")
+                element.append(radioButtonB,answerB)
+                newLine=document.createElement("br")
+                element.append(newLine)
+
+
+                let answerC = document.createElement("span")
+                answerC.innerHTML=data[index].C
+                let radioButtonC = document.createElement("input")
+                radioButtonC.setAttribute("type", "radio")
+                radioButtonC.setAttribute("value", "C")
+                element.append(radioButtonC,answerC)
+                newLine=document.createElement("br")
+                element.append(newLine)
+
+
+                let answerD = document.createElement("span")
+                answerD.innerHTML=data[index].D
+                let radioButtonD = document.createElement("input")
+                radioButtonD.setAttribute("type", "radio")
+                radioButtonD.setAttribute("value", "D")
+                element.append(radioButtonD,answerD)
+                newLine=document.createElement("br")
+                element.append(newLine)
+
+                let button=document.createElement("button")
+                button.innerHTML="Next"
+                button.setAttribute("onclick","next()")
+                element.append(button)
+
+                element.setAttribute("id","theDiv")
+
+                space.append(element)
+            }
+
+
+        }
+
+        function next(){
+            let theDiv=document.getElementById("theDiv")
+
+
+            let allRadios=document.getElementsByTagName("input")
+            for (let i = 0; i < allRadios.length; i++) {
+                console.log(data[index]["answer"])
+                if(allRadios[i].checked && allRadios[i].value===data[index]["answer"])
+                    points++
+            }
+
+            if(index<data.length){
+                index++
+            }
+
+            anime({
+                targets:theDiv,
+                left: -690+"px",
+                duration:2000,
+                easing: "linear",
+                complete: function (){
+                    fullFill()
+                    theDiv.remove()
+                    let newQuestion=document.getElementById("theDiv")
+                    anime({
+                        targets: newQuestion,
+                        translateX:[0,window.innerWidth+60+"px"],
+                        direction:"reverse",
+                        duration: 2000,
+                        easing: "linear"
+                    })
+                }
+            })
+        }
+
+
+
+    </script>
+</head>
+<body>
+<div id="spaceForQuestion">
+
+</div>
+
+</body>
+</html>

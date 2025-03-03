@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pukanje na divovi</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+    <style>
+        div {
+            position: absolute;
+        }
+    </style>
+    <script>
+        let json = '[{"color":"red", "size":"50"},{"color":"blue", "size":"40"},' +
+            '{"color":"orange", "size":"30"},{"color":"green", "size":"20"},' +
+            '{"color":"yellow", "size":"50"}]'
+        let jsonParser = JSON.parse(json)
+
+
+        window.onload = function () {
+
+            let placeToAdd = document.getElementsByTagName("body")[0]
+
+            for (let i = 0; i < 5; i++) {
+                let newDiv = document.createElement("div")
+
+                newDiv.style.background = jsonParser[i].color
+                newDiv.style.width = jsonParser[i].size + "px"
+                newDiv.style.height = jsonParser[i].size + "px"
+
+                newDiv.style.left = Math.floor(Math.random() * window.innerWidth) + "px"
+                newDiv.style.top = Math.floor(Math.random() * window.innerHeight) + "px"
+                newDiv.setAttribute("onclick","setClass(this)")
+
+                placeToAdd.appendChild(newDiv)
+
+            }
+        }
+
+        function setClass(theDiv){
+            theDiv.setAttribute("class","clicked")
+            clicked()
+        }
+
+        function clicked(divce){
+
+            anime({
+                targets: ".clicked",
+                scale: 2,
+                duration:1000,
+                complete: function (){
+                    let theDiv=document.getElementsByClassName("clicked")[0]
+                    theDiv.remove()
+                    get4Divs(theDiv)
+                }
+
+            })
+        }
+
+        function get4Divs(divce) {
+            console.log("goes here");
+            let placeToAdd = document.getElementsByTagName("body")[0];
+
+            let div1 = document.createElement("div");
+            let div2 = document.createElement("div");
+            let div3 = document.createElement("div");
+            let div4 = document.createElement("div");
+
+            let color = divce.style.background;
+            let left = parseInt(divce.style.left);
+            let top = parseInt(divce.style.top);
+            let size = parseInt(divce.style.width) / 4;
+            let margin = 5;
+
+            function applyStyles(div, leftOffset, topOffset) {
+                div.style.position = "absolute";
+                div.style.background = color;
+                div.style.width = size + "px";
+                div.style.height = size + "px";
+                div.style.left = (left + leftOffset) + "px";
+                div.style.top = (top + topOffset) + "px";
+            }
+
+            applyStyles(div1, 0, 0);
+            applyStyles(div2, 0, size + margin);
+            applyStyles(div3, size + margin, 0);
+            applyStyles(div4, size + margin, size + margin);
+
+            placeToAdd.appendChild(div1);
+            placeToAdd.appendChild(div2);
+            placeToAdd.appendChild(div3);
+            placeToAdd.appendChild(div4);
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

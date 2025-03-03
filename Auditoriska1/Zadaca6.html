@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vnesuvanje broevi od tastatura</title>
+    <script>
+        var broj = prompt("Vnesi broj: ");
+        var counter0 = 0, counter1 = 0, counter2 = 0;
+        while (!isNaN(broj)) {
+            if (broj % 3 === 0)
+                counter0++;
+            else if (broj % 3 === 1)
+                counter1++;
+            else
+                counter2++;
+            broj = prompt("Vnesi broj: ");
+        }
+        document.writeln("Vnesovte "+ counter0+" broevi koi imaat ostatok 0 pri delenje so 3");
+        document.writeln("Vnesovte "+ counter1+" broevi koi imaat ostatok 1 pri delenje so 3");
+        document.writeln("Vnesovte "+ counter2+" broevi koi imaat ostatok 2 pri delenje so 3");
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

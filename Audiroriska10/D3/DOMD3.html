@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+</head>
+<body>
+<p>First paragraph</p>
+<p>Second paragraph</p>
+<div style="border:1px solid"></div>
+<p>D3</p><input type="checkbox"/>
+<script>
+    d3.select("body").append("p").text("Third paragraph.");
+    d3.select("div").insert("p").text("Second paragraph.");
+    d3.select("p").remove();
+    d3.select("p").html("<span>This is new inner html.</span>");
+    d3.select("p").attr("class", "error");
+    d3.select("div").style("color", "red")
+</script>
+    <style> .error {
+    color: red
+} </style>
+</body>
+</html>

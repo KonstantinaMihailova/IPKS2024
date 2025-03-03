@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+
+    <style>
+        table,th,td{
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        #left{
+            position: absolute;
+            left: 20px;
+            top: 30px
+        }
+
+        #right{
+            position: absolute;
+            left: 400px;
+            top:30px
+        }
+
+        #bottom{
+            position: absolute;
+            left: 20px;
+            top: 300px
+        }
+    </style>
+    <script>
+        let counterPublished=0
+        var data = '[{"title":"FCSE announcement", "post":"FSCE is starting with classes this semestar from 15th Feb.", "type":"Free", "category":"Education", "published":true},' +
+            '{"title":"What is ann NFT", "post":"An NFT, which stands for non-fungible token, is a unique unit of data employing technology that allows digital content to become logged and authenticated on cryptocurrency blockchains", ' +
+            '"type":"Free", "category":"Science", "published": false}]'
+
+        data=JSON.parse(data)
+
+        window.onload=function (){
+            let tabela=document.getElementById("tabela")
+            for (let i = 0; i < data.length; i++) {
+                let row=document.createElement("tr")
+                let link="finki.ukim.mk/"+data[i].title.toLowerCase().split(" ").join("-")
+                row.innerHTML="<td>"+data[i].title+"</td><td>"+data[i].post+"</td><td>"+link+"</td><td>"+data[i].type+"</td><td>"+data[i].category+"</td><td><button onclick='publish(this)'>Publish</button><button onclick='remove(this)'>Remove</button></td>"
+                tabela.append(row)
+            }
+        }
+
+        function remove(btn){
+            let row=btn.parentNode.parentNode
+            let link=row.children[2].innerHTML
+            let li=document.createElement("li")
+            li.innerHTML=link
+            let list=document.getElementById("removedList")
+            list.append(li)
+
+            anime({
+                targets:row,
+                opacity:0,
+                duration:1000,
+                easing:"linear",
+                complete:function (){
+                    row.remove()
+
+                }
+            })
+
+        }
+
+        function publish(btn){
+            let row=btn.parentNode.parentNode
+            let nextButton=btn.nextSibling
+            btn.disabled=true;
+            nextButton.disabled=true
+
+            row.style.background="lightblue"
+            counterPublished++
+            let space=document.getElementById("posts")
+            space.innerHTML=counterPublished.toString()
+        }
+
+        function importPost(){
+            let title=document.getElementById("title").value
+            let post=document.getElementById("post").value
+            let free=document.getElementById("free")
+            let paid=document.getElementById("paid")
+            let type=""
+            if(free.checked)
+                type="Free"
+            if(paid.checked)
+                type="Paid"
+
+            let link="finki.ukim.mk/"+title.toLowerCase().split(" ").join("-")
+            let category=document.getElementById("category").value
+
+            if(!title || !post ||(!free.checked && !paid.checked)){
+                alert("Enter all fields!")
+                return;
+            }
+
+            let tabela=document.getElementById("tabela")
+            let row=document.createElement("tr")
+            row.innerHTML="<td>"+title+"</td><td>"+post+"</td><td>"+link+"</td><td>"+type+"</td><td>"+category+"</td><td><button>Publish</button><button>Remove</button></td>"
+            tabela.append(row)
+
+        }
+
+
+    </script>
+</head>
+<body>
+<div id="left">
+    <h1>Post details</h1>
+    <div>
+        <label>Title</label>
+        <input type="text" id="title">
+    </div>
+    <div>
+        <label>Post</label>
+        <textarea id="post"></textarea>
+    </div>
+    <div>
+        <label>Content type: </label>
+        <input type="radio" name="type" id="free">Free
+        <input type="radio" name="type" id="paid">Paid
+    </div>
+    <div>
+        <label>Category</label>
+        <select id="category">
+            <option>Science</option>
+            <option>Education</option>
+            <option>Industry</option>
+        </select>
+    </div>
+    <button onclick="importPost()">Import post</button>
+</div>
+<div id="right">
+    <h2>Removed links</h2>
+    <ul id="removedList">
+    </ul>
+</div>
+
+<div id="bottom">
+    <h1>Published posts: <span id="posts"></span></h1>
+    <table id="tabela">
+        <thead>
+        <th>Title</th>
+        <th>Post</th>
+        <th>Link</th>
+        <th>Type</th>
+        <th>Category</th>
+        <th>Actions</th>
+        </thead>
+    </table>
+</div>
+
+</body>
+</html>

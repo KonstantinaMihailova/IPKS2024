@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Divs and scores</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+    <style>
+        #spaceForDivs {
+            width: 800px;
+            height: 630px;
+            background: lightgray;
+            position: absolute;
+            left: 380px;
+            top: 30px;
+        }
+
+        div {
+            position: absolute;
+        }
+    </style>
+    <script>
+        let points = 0
+        let data =
+            '[{"id":1,"width":100,"height":100,"score":10,"direction":"vertical"},' +
+            '{"id":2,"width":100,"height":100,"score":20,"direction":"horizontal"},' +
+            '{"id":3,"width":100,"height":100,"score":30,"direction":"vertical"},' +
+            '{"id":4,"width":100,"height":100,"score":40,"direction":"horizontal"},' +
+            '{"id":5,"width":100,"height":100,"score":50,"direction":"vertical"},' +
+            '{"id":6,"width":100,"height":100,"score":60,"direction":"horizontal"}]';
+        data = JSON.parse(data)
+
+        window.onload = function () {
+            let colors = ["green", "red", "yellow", "orange", "pink", "aquamarine", "blue", "lightblue", "lightgreen", "coral", "lightpink", "darksalmon", "bisque"]
+            let space = document.getElementById("spaceForDivs")
+
+            for (let element of data) {
+
+                let theDiv = document.createElement("div")
+                theDiv.style.width = element.width + "px"
+                theDiv.style.height = element.height + "px"
+                let score = element.score
+                theDiv.setAttribute("value", score)
+                theDiv.innerHTML = score
+                theDiv.style.background = colors[Math.floor(Math.random() * colors.length)]
+                theDiv.style.top = Math.floor(Math.random() * (630 - element.height)) + "px"
+                theDiv.style.left = Math.floor(Math.random() * (800 - element.width)) + "px"
+
+                space.append(theDiv)
+
+                if (element.direction === "vertical")
+                    animeVertical(theDiv)
+                else if (element.direction === "horizontal")
+                    animeHorizontal(theDiv)
+
+            }
+
+            setInterval(showBlackLine, 2000)
+
+        }
+
+        function animeVertical(theDiv) {
+            let parent = document.getElementById('spaceForDivs');
+            let parentHeight = parent.clientHeight;
+
+            let top = parseInt(theDiv.style.top);
+            let height = parseInt(theDiv.style.height);
+
+            let moveBottom = parentHeight - height - top;
+            let moveTop = top;
+
+            let tl = anime.timeline({
+                easing: "linear",
+                duration: 2000,
+                loop: true
+            });
+
+            tl.add({
+                targets: theDiv,
+                translateY: [0, moveBottom + "px"],
+            }).add({
+                targets: theDiv,
+                translateY: [moveBottom + "px", -moveTop + "px"],
+            });
+        }
+
+        function animeHorizontal(theDiv) {
+
+            let parent = document.getElementById('spaceForDivs');
+            let parentWidth = parent.clientWidth;
+
+            let left = parseInt(theDiv.style.left);
+            let width = parseInt(theDiv.style.width);
+
+            let moveRight = parentWidth - width - left;
+            let moveLeft = left;
+
+            let tl = anime.timeline({
+                easing: "linear",
+                duration: 2000,
+                loop: true
+            });
+
+            tl.add({
+                targets: theDiv,
+                translateX: [0, moveRight + "px"],
+            }).add({
+                targets: theDiv,
+                translateX: [moveRight + "px", -moveLeft + "px"],
+            });
+        }
+
+
+
+        function showBlackLine() {
+            let space = document.getElementById("spaceForDivs")
+            let blackLine = document.createElement("div")
+            blackLine.style.height = 630 + "px"
+            blackLine.style.width = 4 + "px"
+            blackLine.style.background = "black"
+            blackLine.style.left = Math.floor(Math.random() * 800) + "px"
+
+            space.append(blackLine)
+
+            setTimeout(function () {
+                blackLine.remove();
+
+                for (let i = space.children.length - 1; i >= 0; i--) {
+                    let child = space.children[i];
+                    if (child !== blackLine && parseInt(child.style.left) < parseInt(blackLine.style.left)) {
+                        points += parseInt(child.getAttribute("value"));
+                        child.remove();
+                    }
+                }
+
+                document.getElementById("points").innerHTML = points;
+
+            }, 1000);
+
+        }
+
+
+    </script>
+</head>
+<body>
+<div id="spaceForDivs">
+
+</div>
+<h2>Score: </h2>
+<h3 id="points"></h3>
+
+</body>
+</html>

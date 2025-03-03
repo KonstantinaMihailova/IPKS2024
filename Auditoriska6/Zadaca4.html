@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transformiranje objekt vo lista</title>
+    <script>
+
+        let student={
+            age: 18,
+            country: "Macedonia",
+            faculty: "FINKI"
+        }
+        function objectToKeyValuePairs(obj) {
+            return Object.entries(obj);
+        }
+        console.log(objectToKeyValuePairs({red: "#FF0000", green: "#00FF00", white: "#FFFFFF"}))
+        console.log(objectToKeyValuePairs(student))
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Presmetuvanje stepen na broj</title>
+    <script>
+        var osnova = prompt("Vnesi ja osnovata: ");
+        var eksp = prompt("Vnesi go eksponentot: ");
+        if (!isNaN(osnova) && !isNaN(eksp) && eksp >= 1) {
+
+            var broj = Math.pow(osnova, eksp);
+            broj = parseInt(broj);
+            document.write("Presmetaniot broj e " + broj);
+
+        } else {
+            document.write("Vnesovte nesoodvetni broevi");
+        }
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
